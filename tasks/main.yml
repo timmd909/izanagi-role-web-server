@@ -1,0 +1,8 @@
+---
+
+- include: "install.yml"
+  sudo: yes
+- include: "php.yml"
+  sudo: yes
+- include: "configure.yml"
+  sudo: yes
