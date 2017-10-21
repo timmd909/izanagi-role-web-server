@@ -1,5 +1,6 @@
 ---
 
 - name: "Restart Apache"
-  sudo: yes
+  become: yes
+  become_user: root
   service: state=restarted name=apache2

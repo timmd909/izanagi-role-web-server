@@ -1,8 +1,13 @@
 ---
 
 - include: "install.yml"
-  sudo: yes
+  become: yes
+  become_user: root
+
 - include: "php.yml"
-  sudo: yes
+  become: yes
+  become_user: root
+
 - include: "configure.yml"
-  sudo: yes
+  become: yes
+  become_user: root
