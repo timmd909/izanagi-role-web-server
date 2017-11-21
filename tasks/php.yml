@@ -79,4 +79,4 @@
     - mbstring
     - phar
     - xml
-  when: ansible_codename == "raspberrypi"
+  when: ansible_lsb.id == "Raspbian"
