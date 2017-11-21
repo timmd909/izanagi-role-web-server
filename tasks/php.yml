@@ -5,13 +5,11 @@
   with_items:
     - php5
     - php-apc
-    - php5-bcmath
     - php5-cgi
     - php5-curl
     - php5-gd
     - php5-imagick
     - php5-json
-    - php5-mbstring
     - php5-mcrypt
     - php5-mysqlnd
     - php5-sqlite
@@ -36,9 +34,19 @@
 
 - name: Install Composer
   apt: name=composer state=latest
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '16.04'
 
-- name: Enable PHP mods
-  shell: "phpenmod {{ item }}"
+- name: Download and Install Composer (Ubuntu 14.04)
+  shell: "{{ item }}"
+  with_items:
+    - php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+    - php composer-setup.php
+    - cp composer.phar /usr/local/bin/composer
+    - rm -f composer.phar  composer-setup.php
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '14.04'
+
+- name: Enable PHP mods (Ubuntu 14.04)
+  shell: "php5enmod {{ item }}"
   with_items:
     - bcmath
     - curl
@@ -47,3 +55,28 @@
     - mcrypt
     - phar
     - xml
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '14.04'
+
+- name: Enable PHP mods (Ubuntu 16.04)
+  shell: "phpenmod {{ item }}"
+  with_items:
+    - curl
+    - mcrypt
+    - bcmath
+    - dom
+    - mbstring
+    - phar
+    - xml
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '16.04'
+
+- name: Enable PHP mods (Raspbian)
+  shell: "phpenmod {{ item }}"
+  with_items:
+    - curl
+    - mcrypt
+    - bcmath
+    - dom
+    - mbstring
+    - phar
+    - xml
+  when: ansible_codename == "raspberrypi"
