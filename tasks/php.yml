@@ -47,6 +47,8 @@
 
 - name: Enable PHP mods (Ubuntu 14.04)
   shell: "php5enmod {{ item }}"
+  args:
+    creates: "/etc/apache2/mods-enabled/{{ item }}.load"
   with_items:
     - bcmath
     - curl
@@ -59,6 +61,8 @@
 
 - name: Enable PHP mods (Ubuntu 16.04)
   shell: "phpenmod {{ item }}"
+  args:
+    creates: "/etc/apache2/mods-enabled/{{ item }}.load"
   with_items:
     - curl
     - mcrypt
@@ -71,6 +75,8 @@
 
 - name: Enable PHP mods (Raspbian)
   shell: "phpenmod {{ item }}"
+  args:
+    creates: "/etc/apache2/mods-enabled/{{ item }}.load"
   with_items:
     - curl
     - mcrypt
