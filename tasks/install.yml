@@ -8,5 +8,9 @@
   when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '14.04'
 
 - name: Install mod PHP for Apache (Ubuntu 16.04)
-  apt: name=libapache2-mod-php5 state=present
+  apt: name=libapache2-mod-php state=present
   when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '16.04'
+
+- name: Install mod PHP for Apache (Raspbian)
+  apt: name=libapache2-mod-php state=present
+  when: ansible_distribution == 'Debian' and ansible_lsb.id == 'Raspbian'
