@@ -13,9 +13,10 @@
     - php5-mcrypt
     - php5-mysqlnd
     - php5-sqlite
+    - php5-xml
   when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '14.04'
 
-- name: Install PHP (Ubuntu 16.04)
+- name: Install PHP
   apt: name="{{ item }}" state=present
   with_items:
     - php
@@ -30,11 +31,12 @@
     - php-mcrypt
     - php-mysqlnd
     - php-sqlite3
-  when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '16.04'
+    - php-xml
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '16.04' or (ansible_lsb.id == "Raspbian")
 
 - name: Install Composer
   apt: name=composer state=latest
-  when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '16.04'
+  when: (ansible_distribution == 'Ubuntu' and ansible_distribution_version == '16.04') or (ansible_lsb.id == "Raspbian")
 
 - name: Download and Install Composer (Ubuntu 14.04)
   shell: "{{ item }}"

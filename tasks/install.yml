@@ -14,3 +14,10 @@
 - name: Install mod PHP for Apache (Raspbian)
   apt: name=libapache2-mod-php state=present
   when: ansible_distribution == 'Debian' and ansible_lsb.id == 'Raspbian'
+
+- name: Install libsass
+  apt: name="{{ item }}"
+  with_items:
+    - libsass0
+    - libsass-dev
+  when: (ansible_distribution == 'Ubuntu' and ansible_distribution_version == '16.04') or (ansible_lsb.id == "Raspbian")
