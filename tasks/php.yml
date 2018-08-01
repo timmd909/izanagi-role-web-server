@@ -1,5 +1,23 @@
 ---
 
+- name: Install PHP (Mint)
+  apt: name="{{ item }}" state=present
+  with_items:
+    - php
+    - php-apcu
+    - php-bcmath
+    - php-cgi
+    - php-curl
+    - php-dom
+    - php-gd
+    - php-imagick
+    - php-json
+    - php-mbstring
+    - php-mysqlnd
+    - php-sqlite3
+    - php-xml
+  when: ansible_distribution == 'Linux Mint'
+
 - name: Install PHP (Ubuntu 14.04)
   apt: name="{{ item }}" state=present
   with_items:
@@ -34,7 +52,14 @@
     - php-xml
   when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '16.04' or (ansible_lsb.id == "Raspbian")
 
-- name: Install Composer
+#
+# Composer
+#
+- name: Install Composer (Mint)
+  apt: name=composer state=latest
+  when: ansible_distribution == 'Linux Mint'
+
+- name: Install Composer (Ubuntu)
   apt: name=composer state=latest
   when: (ansible_distribution == 'Ubuntu' and ansible_distribution_version == '16.04') or (ansible_lsb.id == "Raspbian")
 
@@ -46,6 +71,28 @@
     - cp composer.phar /usr/local/bin/composer
     - rm -f composer.phar  composer-setup.php
   when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '14.04'
+
+#
+# PHP Modules
+#
+- name: Enable PHP mods (Mint)
+  shell: "phpenmod {{ item }}"
+  args:
+    creates: "/etc/apache2/mods-enabled/{{ item }}.load"
+  with_items:
+    - bcmath
+    - calendar
+    - ctype
+    - curl
+    - dom
+    - mbstring
+    - mcrypt
+    - pdo
+    - phar
+    - readline
+    - sockets
+    - xml
+  when: ansible_distribution == 'Linux Mint'
 
 - name: Enable PHP mods (Ubuntu 14.04)
   shell: "php5enmod {{ item }}"
