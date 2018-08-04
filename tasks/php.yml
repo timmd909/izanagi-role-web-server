@@ -1,5 +1,8 @@
 ---
 
+- name: memcache
+  apt: name=memcached state=present
+
 - name: Install PHP (Mint)
   apt: name="{{ item }}" state=present
   with_items:
@@ -13,6 +16,7 @@
     - php-imagick
     - php-json
     - php-mbstring
+    - php-memcached
     - php-mysqlnd
     - php-sqlite3
     - php-xml

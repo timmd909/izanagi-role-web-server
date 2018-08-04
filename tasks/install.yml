@@ -21,3 +21,7 @@
     - libsass0
     - libsass-dev
   when: (ansible_distribution == 'Ubuntu' and ansible_distribution_version == '16.04') or (ansible_lsb.id == "Raspbian")
+
+- name: Install libpng12
+  apt: deb="http://archive.ubuntu.com/ubuntu/pool/main/libp/libpng/libpng12-0_1.2.46-3ubuntu4.2_amd64.deb" state=present
+  when: ansible_distribution == 'Linux Mint'
