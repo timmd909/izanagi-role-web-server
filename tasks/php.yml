@@ -57,16 +57,15 @@
 - name: Install PHP (Ubuntu 18.04)
   apt: name="{{ item }}" state=present
   with_items:
-    - php5
-    - php-apc
+    - php
+    - php-apcu
     - php-cgi
     - php-curl
     - php-gd
     - php-imagick
     - php-json
-    - php-mcrypt
     - php-mysqlnd
-    - php-sqlite
+    - php-sqlite3
     - php-xml
   when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '18.04'
 
