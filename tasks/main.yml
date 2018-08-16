@@ -4,10 +4,6 @@
   become: yes
   become_user: root
 
-- include: "php.yml"
-  become: yes
-  become_user: root
-
 - include: "configure.yml"
   become: yes
   become_user: root
