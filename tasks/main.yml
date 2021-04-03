@@ -1,8 +1,24 @@
 ---
 
-- include: "install.yml"
+- include: install-ubuntu-16.04.yml
   become: yes
   become_user: root
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '16.04'
+
+- include: install-ubuntu-18.04.yml
+  become: yes
+  become_user: root
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '18.04'
+
+- include: install-ubuntu-20.04.yml
+  become: yes
+  become_user: root
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '20.04'
+
+- include: install-raspbian.yml
+  become: yes
+  become_user: root
+  when: ansible_distribution == 'Debian' and ansible_lsb.id == 'Raspbian'
 
 - include: "configure.yml"
   become: yes
