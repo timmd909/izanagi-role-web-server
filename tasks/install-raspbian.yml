@@ -3,9 +3,3 @@
 
 - name: Install mod PHP for Apache
   apt: name=libapache2-mod-php state=present
-
-- name: Install libsass
-  apt: name="{{ item }}"
-  with_items:
-    - libsass0
-    - libsass-dev
