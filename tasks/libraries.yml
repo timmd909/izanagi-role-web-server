@@ -1,0 +1,9 @@
+
+- name: Install helpful PHP libraries
+  apt:
+    name:
+      - php-bcmath
+      - php-gd
+      - php-imagick
+      - php-mysql
+    state: present
