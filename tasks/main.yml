@@ -18,7 +18,3 @@
 - include: "configure.yml"
   become: yes
   become_user: root
-
-- include: "libraries.yml"
-  become: yes
-  become_user: root
