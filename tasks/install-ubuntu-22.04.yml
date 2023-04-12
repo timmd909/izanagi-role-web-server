@@ -11,12 +11,12 @@
 #     - libsass-dev
 #     state: present
 
-- name: 'Disable newer versions of PHP in Apache'
+- name: 'Enable PHP 7.4 in Apache'
+  shell: "a2enmod php7.4"
+
+- name: 'Disable other versions of PHP in Apache'
   shell: "a2dismod {{ item }}"
   with_items:
-    - php7.4
+    - php7.2
     - php8.1
     - php8.2
-
-- name: 'Enable PHP 7.2 in Apache'
-  shell: "a2enmod php7.2"
