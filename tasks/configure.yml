@@ -1,7 +1,7 @@
 ---
 
 - name: Configure Apache modules
-  apache2_module: state=present name="{{ item }}"
+  shell: "a2enmod {{ item }}"
   with_items:
     - proxy
     - rewrite
