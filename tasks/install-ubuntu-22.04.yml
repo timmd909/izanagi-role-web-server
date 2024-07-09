@@ -2,7 +2,11 @@
   apt: name="apache2" state=present
 
 - name: Install mod PHP for Apache
-  apt: name=libapache2-mod-php7.2 state=present
+  apt:
+    name:
+      - libapache2-mod-php7.2
+      - libapache2-mod-php7.4
+    state: present
 
 # - name: Install libsass
 #   apt:
@@ -15,7 +19,7 @@
   shell: "a2enmod php7.4"
 
 - name: 'Disable other versions of PHP in Apache'
-  shell: "a2dismod {{ item }}"
+  shell: "a2dismod {{ item }} || true"
   with_items:
     - php7.2
     - php8.1
