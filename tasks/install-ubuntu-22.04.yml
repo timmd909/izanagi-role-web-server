@@ -18,8 +18,10 @@
 - name: 'Enable PHP 7.4 in Apache'
   shell: "a2enmod php7.4"
 
-- name: 'Disable other versions of PHP in Apache'
+- name: 'Disable newer versions of PHP in Apache (if found)'
   shell: "a2dismod {{ item }} || true"
+  # note: we're ignoring errors on purpose. this is a belt and suspenders
+  # sort of deal.
   with_items:
     - php7.2
     - php8.1
